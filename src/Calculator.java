@@ -27,6 +27,11 @@ public class Calculator {
 
         while (true) {
             System.out.print("Enter first number: ");
+            while (!sc.hasNextDouble()) {
+                System.out.println("Invalid input! Please enter a number.");
+                sc.next(); // discard invalid input
+                System.out.print("Enter first number: ");
+            }
             double num1 = sc.nextDouble();
 
             System.out.print("Enter an operator (+, -, *, /, %) or 'x' to exit: ");
@@ -38,11 +43,25 @@ public class Calculator {
                 break;
             }
 
+            if ("+-*/%".indexOf(operator) == -1) {
+                System.out.println("Invalid operator! Please try again.");
+                continue;
+            }
+
             System.out.print("Enter second number: ");
+            while (!sc.hasNextDouble()) {
+                System.out.println("Invalid input! Please enter a number.");
+                sc.next();
+                System.out.print("Enter second number: ");
+            }
             double num2 = sc.nextDouble();
 
-            double result = 0;
+            if (operator == '/' && num2 == 0) {
+                System.out.println("Error: Cannot divide by zero!");
+                continue;
+            }
 
+            double result = 0;
             switch (operator) {
                 case '+':
                     result = add(num1, num2);
@@ -59,14 +78,12 @@ public class Calculator {
                 case '%':
                     result = modulus(num1, num2);
                     break;
-                default:
-                    System.out.println("Invalid operator!");
-                    continue; // Skip to next loop iteration
             }
 
             System.out.println("Result: " + result);
             System.out.println("-------------------------");
         }
+
         sc.close();
     }     
 }
