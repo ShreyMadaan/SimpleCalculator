@@ -23,38 +23,50 @@ public class Calculator {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         System.out.println("=== Simple Calculator ===");
-        System.out.println("Enter first number: ");
-        double a = sc.nextDouble();
-        System.out.println("Enter an operator (+, -, *, /, %): ");
-        char operator = sc.next().charAt(0);
-        System.out.println("Enter second number: ");
-        double b = sc.nextDouble();
-        double result = 0;
 
-        switch (operator) {
-            case '+':
-                result = add(a, b);
+        while (true) {
+            System.out.print("Enter first number: ");
+            double num1 = sc.nextDouble();
+
+            System.out.print("Enter an operator (+, -, *, /, %) or 'x' to exit: ");
+            String opInput = sc.next();
+            char operator = opInput.charAt(0);
+
+            if (operator == 'x' || operator == 'X') {
+                System.out.println("Exiting Calculator. Goodbye!");
                 break;
-            case '-':
-                result = subtract(a, b);
-                break;
-            case '*':
-                result = multiply(a, b);
-                break;
-            case '/':
-                result = divide(a, b);
-                break;
-            case '%':
-                result = modulus(a, b);
-                break;
-            default:
-                 System.out.println("Error: Invalid operator");
-                 sc.close();
-                 return;
+            }
+
+            System.out.print("Enter second number: ");
+            double num2 = sc.nextDouble();
+
+            double result = 0;
+
+            switch (operator) {
+                case '+':
+                    result = add(num1, num2);
+                    break;
+                case '-':
+                    result = subtract(num1, num2);
+                    break;
+                case '*':
+                    result = multiply(num1, num2);
+                    break;
+                case '/':
+                    result = divide(num1, num2);
+                    break;
+                case '%':
+                    result = modulus(num1, num2);
+                    break;
+                default:
+                    System.out.println("Invalid operator!");
+                    continue; // Skip to next loop iteration
+            }
+
+            System.out.println("Result: " + result);
+            System.out.println("-------------------------");
         }
-        System.out.println("Result: " + result);
         sc.close();
-    }
+    }     
 }
