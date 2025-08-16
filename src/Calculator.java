@@ -1,28 +1,10 @@
 import java.util.Scanner;
 
 public class Calculator {
-    public static double add(double a, double b) {
-        return a + b;
-    }
-    public static double subtract(double a, double b) {
-        return a - b;
-    }
-    public static double multiply(double a, double b) {
-        return a * b;
-    }
-    public static double divide(double a, double b) {
-        if (b == 0) {
-            System.out.println("Error: Division by zero");
-            return 0;
-        }
-        return a / b;
-    }
-    public static double modulus(double a, double b) {
-        return a % b;
-    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        OperationFactory factory = new OperationFactory();
         System.out.println("=== Simple Calculator ===");
         System.out.println("Tip: You can exit anytime by typing 'x' or 'X'");
 
@@ -74,23 +56,15 @@ public class Calculator {
             }
             double num2 = Double.parseDouble(secondInput);
 
-            // Division by zero check
-            if (operator == '/' && num2 == 0) {
-                System.out.println("Error: Cannot divide by zero!");
-                continue;
+            // Perform Calculation via Strategy
+            try {
+                Operation operation = factory.fromOperator(operator);
+                double result = operation.apply(num1, num2);
+                System.out.println("Result: " + result);
+            } catch (IllegalArgumentException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
 
-            // Perform Calculation
-            double result = 0;
-            switch (operator) {
-                case '+': result = add(num1, num2); break;
-                case '-': result = subtract(num1, num2); break;
-                case '*': result = multiply(num1, num2); break;
-                case '/': result = divide(num1, num2); break;
-                case '%': result = modulus(num1, num2); break;
-            }
-
-            System.out.println("Result: " + result);
             System.out.println("-------------------------");
         }
 
