@@ -1,68 +1,104 @@
 # Simple Calculator (Java Console Application)
 
-## 📌 Overview
-A simple Java-based console calculator that can perform basic arithmetic operations:
-- Addition
-- Subtraction
-- Multiplication
-- Division
-- Modulus
-
-This calculator also supports **exit at any stage** by typing `x` or `X`.
+##  Overview
+A sleek, console-based Java calculator supporting basic arithmetic (addition, subtraction, multiplication, division, modulus), now refactored using **SOLID principles** and the **Factory Design Pattern** for improved maintainability and extensibility.
 
 ---
 
-## 🚀 Features
-- Perform basic arithmetic operations.
-- Input validation for numbers and operators.
-- Prevents division by zero.
-- Continuous calculations in a loop until user exits.
-- Exit anytime during input.
+##  Key Features
+
+- **Core Operations**: Addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), modulus (`%`)
+- **Flexible Exit**: Users can exit at any prompt by typing `x` or `X`
+- **Robust Input Validation**: Handles invalid numbers and operators gracefully
+- **Division Safety**: Prevents division by zero errors
+- **Extensible Design**:
+  - Follows **SOLID** architectural guidelines (Open–Closed, Single Responsibility, etc.)
+  - Implements **Factory Pattern** to easily add new operations without modifying existing code
 
 ---
 
-## 🛠️ Technologies Used
-- **Java** (Core Java, OOP concepts, loops, switch-case)
-- **Scanner** for user input
+##  Design & Architecture
+
+Calculator.java
+└── CalculatorFactory (Factory Pattern)
+└── Operator interface + ConcreteOperation classes
+
+- **Interface**: `Operation` defines a single `execute(double a, double b)` method.
+- **Factory**: `CalculatorFactory` returns appropriate `Operation` objects based on user-provided operator.
+- **Open–Closed Principle**: To add a new operation (like power or square root), simply:
+  1. Implement a new `Operation` subclass.
+  2. Update `CalculatorFactory` to handle the new operator key.
+  No existing logic needs to be changed — you’re open for extension, closed for modification.
 
 ---
 
-## 📂 Project Structure
+##  Technologies Used
+
+- Java (Core Java, OOP, interfaces)
+- Console I/O with `Scanner`
+
+---
+
+##  Project Structure
+
 SimpleCalculator/
 ├── src/
-│ └── Calculator.java
+│ ├── Calculator.java
+│ ├── Operation.java
+│ ├── AddOperation.java
+│ ├── SubtractOperation.java
+│ ├── MultiplyOperation.java
+│ ├── DivideOperation.java
+│ ├── ModulusOperation.java
+│ └── CalculatorFactory.java
 └── README.md
 
 ---
 
-## 💻 How to Run
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ShreyMadaan/SimpleCalculator.git
-2. Open the project in any Java IDE (IntelliJ IDEA, Eclipse, VS Code) or terminal.
+##  How to Run
 
-3. Compile and run:
-   javac src/Calculator.java
-   java -cp src Calculator
+```bash
+git clone https://github.com/ShreyMadaan/SimpleCalculator.git
+cd SimpleCalculator/src
+javac *.java
+java Calculator
 
 ---
 
-## Sample Output
+## Sample Interaction
 
 === Simple Calculator ===
 Tip: You can exit anytime by typing 'x' or 'X'
-Enter first number: 10
-Enter an operator (+, -, *, /, %): *
-Enter second number: 5
-Result: 50.0
+
+Enter first number: 12
+Enter operator (+, -, *, /, %): +
+Enter second number: 8
+Result: 20.0
 -------------------------
+
 Enter first number: x
 Exiting Calculator. Goodbye!
 
 ---
 
-## 🗒️ Future Improvements
+## Future Enhancements
 
-Add square root, power, and percentage calculations.
-Implement memory functions (M+, M-, MR).
-Add history tracking.
+Add new operations (e.g. power, percentage, square root)
+Implement command history or memory functions
+Transition to a Maven setup for better structure as project complexity grows
+
+## Commit Highlights
+
+init: Initial calculator logic
+feat: Live input loop with validation and exit condition
+refactor: Applied SOLID + Factory design pattern for scalable architecture
+
+---
+
+## Why This Matters
+
+By layering core functionality on top of solid architectural patterns, this project evolves from a simple utility into a well-designed codebase — making modifications and enhancements straightforward while retaining clarity.
+
+---
+
+Feel free to star, fork, or contribute!
